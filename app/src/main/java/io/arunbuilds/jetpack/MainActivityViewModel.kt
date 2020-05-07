@@ -1,19 +1,20 @@
 package io.arunbuilds.jetpack
 
+import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MainActivityViewModel(startingValue: Int) : ViewModel() {
-    private var counter = MutableLiveData<Int>()
-    val currentCount: LiveData<Int>
+     var counter = MutableLiveData<String>()
+    val currentCount: LiveData<String>
         get() = counter
 
     init {
-        counter.postValue(startingValue)
+        counter.postValue(startingValue.toString())
     }
 
     fun updateCounterByOne() {
-        counter.postValue(counter.value?.plus(1))
+        counter.postValue(counter.value?.toLong()?.plus(1).toString())
     }
 }
