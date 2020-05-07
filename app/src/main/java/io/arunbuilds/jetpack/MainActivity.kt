@@ -3,6 +3,7 @@ package io.arunbuilds.jetpack
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import io.arunbuilds.jetpack.databinding.ActivityMainBinding
 
@@ -15,12 +16,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewModelFactory = MainActivityViewModelFactory(100)
-        viewModel = ViewModelProvider(this,viewModelFactory).get(MainActivityViewModel::class.java)
-        binding.counterTextView.text = viewModel.getCurrentCount().toString()
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainActivityViewModel::class.java)
+        viewModel.getCurrentCount().observe(this, Observer{
+            binding.counterTextView.text = it.toString()
+        })
         binding.startButton.setOnClickListener {
-            binding.counterTextView.text = viewModel.getUpdatedCount().toString()
+            viewModel.updateCounterByOne()
         }
-
     }
 
 }
