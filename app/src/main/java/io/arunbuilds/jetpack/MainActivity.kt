@@ -14,16 +14,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.person = getRandomPerson()
         binding.submitButton.setOnClickListener {
             val student = getRandomPerson()
-            bindPersonIntoViews(student)
-        }
-    }
-
-    private fun bindPersonIntoViews(student: Person) {
-        binding.apply {
-            nameTextView.text = student.name
-            ageTextView.text = student.age.toString()
+            binding.person = student
         }
     }
 
